@@ -33,8 +33,8 @@ serve(async (req) => {
 
   try {
     const { messages, action, buildContext } = await req.json();
-    const BUILDIFY_API_KEY = Deno.env.get("BUILDIFY_API_KEY");
-    if (!BUILDIFY_API_KEY) throw new Error("BUILDIFY_API_KEY is not configured");
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
     // Build context-aware system messages
     const systemMessages: any[] = [{ role: "system", content: SYSTEM_PROMPT }];
@@ -63,11 +63,11 @@ serve(async (req) => {
     }
 
     const response = await fetch(
-      "https://ai.gateway.buildify.app/v1/chat/completions",
+      "https://ai.gateway.lovable.dev/v1/chat/completions",
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${BUILDIFY_API_KEY}`,
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
