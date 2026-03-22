@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@layer base {
+  :root {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 222 47% 6%;
+
+    --secondary: 222 47% 12%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 30% 15%;
+    --muted-foreground: 215 20% 55%;
+
+    --accent: 199 89% 48%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 30% 18%;
+    --input: 222 30% 18%;
+    --ring: 199 89% 48%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --glow-primary: 199 89% 48%;
+    --glow-success: 142 76% 45%;
+    --glow-warning: 38 92% 50%;
+    --surface-elevated: 222 47% 10%;
+    --gradient-primary: linear-gradient(135deg, hsl(199 89% 48%) 0%, hsl(220 89% 60%) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(222 47% 8%) 0%, hsl(222 47% 4%) 100%);
+    --shadow-glow: 0 0 40px -10px hsl(199 89% 48% / 0.4);
+    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.5);
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .glow-text {
+    text-shadow: 0 0 20px hsl(var(--glow-primary) / 0.5);
+  }
+
+  .glow-box {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: var(--radius);
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: var(--radius);
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .step-indicator {
+    @apply relative flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300;
+  }
+
+  .step-indicator.active {
+    @apply border-primary bg-primary/20;
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.4);
+  }
+
+  .step-indicator.completed {
+    @apply border-primary bg-primary text-primary-foreground;
+  }
+
+  .step-indicator.pending {
+    @apply border-muted bg-muted/50 text-muted-foreground;
+  }
+
+  .part-card {
+    @apply relative overflow-hidden rounded-lg bg-card border border-border p-4 transition-all duration-300 cursor-pointer;
+  }
+
+  .part-card:hover {
+    @apply border-primary/50;
+    box-shadow: 0 0 30px -10px hsl(var(--primary) / 0.3);
+  }
+
+  .part-card.selected {
+    @apply border-primary;
+    box-shadow: 0 0 30px -10px hsl(var(--primary) / 0.5);
+  }
+
+  .price-tag {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-mono font-medium;
+    background: hsl(var(--primary) / 0.15);
+    color: hsl(var(--primary));
+  }
+
+  .compatibility-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .compatibility-badge.compatible {
+    background: hsl(142 76% 45% / 0.15);
+    color: hsl(142 76% 45%);
+  }
+
+  .compatibility-badge.warning {
+    background: hsl(38 92% 50% / 0.15);
+    color: hsl(38 92% 50%);
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
